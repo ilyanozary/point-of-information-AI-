@@ -19,7 +19,7 @@ labels_df = labels_df.drop('label', axis=1)
 
 # تعریف مدل
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 3)))
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(960, 1280,3)))
 model.add(MaxPooling2D((2, 2)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D((2, 2)))
@@ -41,17 +41,15 @@ train_generator = train_datagen.flow_from_dataframe(
     dataframe=labels_df,
     x_col='image',
     y_col=list(labels_onehot.columns),
-    target_size=(28, 28),
+    target_size=(960, 1280),
     batch_size=32,
     class_mode='raw'
 )
-print(labels_df.head())
-print(labels_onehot.head())
 
-"""
+
+
 # آموزش مدل
 model.fit(train_generator, epochs=5)
 
 # ذخیره مدل
 model.save("model/my_model.h5")
-"""
